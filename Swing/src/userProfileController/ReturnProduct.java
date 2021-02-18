@@ -21,7 +21,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.google.gson.Gson;
+
+import api.Utility;
 import database.DB;
+import model.Product;
 import model.Purchase_History;
 
 /**
@@ -230,6 +237,19 @@ public class ReturnProduct extends JFrame implements ActionListener {
 					lblNewLabel_4.setText("Please Enter Correct Billing Number");
 				} else {
 					billingPurchaseHistory = db.getPurchaseDetails(num);
+					JSONObject reqObj = prepareReqJsonObj(String.valueOf(num));
+
+//					JSONObject reqObj = checkMethod(user);
+					String reqString = reqObj.toString();
+					String APIUrl = "http://localhost:9090/findProduct?id="+num;
+
+					String response = Utility.excutePost(APIUrl, reqString);
+
+					System.out.println(" reqObj" + reqObj);
+					System.out.println("reqString" + reqString);
+					System.out.println("response" + response);
+//					Gson gson = new Gson();
+//					product = gson.fromJson(response, Product.class);
 					if (billingPurchaseHistory.size() == 0) {
 						lblNewLabel_4.setText("No Records Found in the Database");
 					} else {
@@ -357,5 +377,16 @@ public class ReturnProduct extends JFrame implements ActionListener {
 			return 0;
 		}
 		return num;
+	}
+	
+	public JSONObject prepareReqJsonObj(String s1) {
+		JSONObject jsonobj = new JSONObject();
+		try {
+			jsonobj.put("productID", s1);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonobj;
 	}
 }
