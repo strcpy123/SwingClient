@@ -1,7 +1,6 @@
 package userProfileController;
 
 import java.awt.Font;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -13,7 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import database.DB;
 import model.Purchase_History;
 
 public class OrderSuccess extends JFrame {
@@ -29,13 +27,12 @@ public class OrderSuccess extends JFrame {
 	private Object rowData[] = new Object[10];
 	private DefaultTableModel model;
 	private List<Purchase_History> purchaseList;
-	private DB db;
    
 
 	/**
 	 * Create the frame. When order placed successfully
 	 */
-	public OrderSuccess(int code) {
+	public OrderSuccess(List<Purchase_History> purchase) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 750, 750);
 		setLocationRelativeTo(null); 
@@ -86,9 +83,8 @@ public class OrderSuccess extends JFrame {
 		textField_1.setColumns(10);
 		
 		model = (DefaultTableModel) table.getModel();
-		db = new DB();
-		purchaseList = db.getPurchaseDetails(code);
-		textField_1.setText(String.valueOf(purchaseList.get(0).getId()));
+		purchaseList = purchase;
+		textField_1.setText(String.valueOf(purchaseList.get(0).getBillingId()));
 		float total = 0;
 		for (int i = 0; i < purchaseList.size(); i++) {
 			rowData[0] = purchaseList.get(i).getProduct_Id();

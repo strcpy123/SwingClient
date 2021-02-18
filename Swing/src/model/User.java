@@ -1,14 +1,9 @@
 package model;
 
-import java.io.Serializable;
-
-import com.google.gson.annotations.SerializedName;
-
-public class User implements Serializable {
+public class User {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	// Variable declaration
 	private String nameField;
 	private String emailField;

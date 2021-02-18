@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +24,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +47,6 @@ public class CartController extends JFrame implements ActionListener {
 	private String quantity[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
 	private JComboBox comboBox_1;
 	private DefaultCellEditor cellEditor;
-	private Product product;
 	private HashSet<Product> cartSet;
 	private Object rowData[] = new Object[10];
 	private DefaultTableModel model;
@@ -55,7 +57,7 @@ public class CartController extends JFrame implements ActionListener {
 	private JButton btnNewButton;
 	private Purchase_History purchase_history;
 	private List<Purchase_History> purchaseList;
-	private DB db;
+	private int code = 0;
 
 	/**
 	 * Create the frame.
@@ -63,7 +65,7 @@ public class CartController extends JFrame implements ActionListener {
 	public CartController(HashSet<Product> productSet) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 750, 750);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -128,7 +130,7 @@ public class CartController extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-        // When Product Quantity is selected in the Cart
+		// When Product Quantity is selected in the Cart
 		if (e.getSource() == comboBox_1) {
 			for (int i = 0; i < table.getRowCount(); i++) {
 				if (table.getModel().getValueAt(i, 3) != null) {
@@ -156,7 +158,6 @@ public class CartController extends JFrame implements ActionListener {
 			textField.setText("" + totalSum);
 			purchaseList = new ArrayList<Purchase_History>();
 			btnNewButton.setEnabled(true);
-			db = new DB();
 		}
 		// When place order button clicked
 		if (e.getActionCommand() == "Place Order") {
@@ -166,73 +167,58 @@ public class CartController extends JFrame implements ActionListener {
 				purchase_history.setProduct_Name((String) table.getModel().getValueAt(i, 1));
 				purchase_history.setProduct_cost((Float) table.getModel().getValueAt(i, 2));
 //				System.out.println((table.getModel().getValueAt(i, 3));
-				purchase_history.setQuantity(Integer.parseInt((String)(table.getModel().getValueAt(i, 3))));
+				purchase_history.setQuantity(Integer.parseInt((String) (table.getModel().getValueAt(i, 3))));
 				purchase_history.setTotal_cost(Float.parseFloat((String) table.getModel().getValueAt(i, 4)));
 				purchaseList.add(purchase_history);
 			}
-			int code = (int)(Math.random() * 100000);
-//			db.storeProduct(purchaseList,code);
-//			String jsonStr = JSONArray.toJSONString(purchaseList);
-			JSONObject reqObj = prepareReqJsonObj(purchaseList);
-//			JSONArray reqObj = getCartList(purchaseList);
-//			JSONObject reqObj = checkMethod(user);
+			code = (int) (Math.random() * 100000);
+			JSONArray reqObj = prepareReqJsonObj(purchaseList);
 			String reqString = reqObj.toString();
 			String APIUrl = "http://localhost:9090/storeProduct";
 
 			String response = Utility.excutePost(APIUrl, reqString);
-			
+
 			System.out.println(" reqObj" + reqObj);
 			System.out.println("reqString" + reqString);
 			System.out.println("response" + response);
-//			Gson gson = new Gson();
-//			product = gson.fromJson(response, Product.class);
-//			OrderSuccess orderSuccess = new OrderSuccess(code);
+			ObjectMapper mapper = new ObjectMapper();
+			List<Purchase_History> ppl2 = new ArrayList<Purchase_History>();
+			try {
+				// 2. convert JSON array to List of objects
+				ppl2 = Arrays.asList(mapper.readValue(response, Purchase_History[].class));
+//				System.out.println("\nJSON array to List of objects");
+//				ppl2.stream().forEach(x -> System.out.println(x));
+			} catch (IOException exx) {
+				System.out.println("Message:" + exx.getMessage());
+			}
+			OrderSuccess orderSuccess = new OrderSuccess(ppl2);
 			dispose();
 		}
 	}
-	/**
-	 * id
-	product_Id
-	product_Name
-	product_cost
-	quantity
-	total_cost 
-	 */
-	
-	public JSONObject prepareReqJsonObj(List<Purchase_History> list) {
-		JSONObject jsonobj = new JSONObject();
-		JSONArray arr =  new JSONArray();
+
+	public JSONArray prepareReqJsonObj(List<Purchase_History> list) {
+		System.out.println("list" + list);
+		JSONObject jsonobj = null;
+		JSONArray arr = new JSONArray();
 		try {
 			for (Purchase_History purchase_History : list) {
-				jsonobj.put("id", purchase_History.getId());
-				jsonobj.put("product_Id",purchase_History.getProduct_Id());
-				jsonobj.put("product_Name",purchase_History.getProduct_Name());
-				jsonobj.put("product_cost",purchase_History.getProduct_cost());
-				jsonobj.put("quantity",purchase_History.getQuantity());
-				jsonobj.put("total_cost",purchase_History.getTotal_cost());
-				
+				jsonobj = new JSONObject();
+				jsonobj.put("billingId", code);
+				jsonobj.put("product_Id", purchase_History.getProduct_Id());
+				jsonobj.put("product_Name", purchase_History.getProduct_Name());
+				jsonobj.put("product_cost", purchase_History.getProduct_cost());
+				jsonobj.put("quantity", purchase_History.getQuantity());
+				jsonobj.put("total_cost", purchase_History.getTotal_cost());
+				arr.put(jsonobj);
 			}
-			
-//			jsonobj.
-//			jsonobj.put("code", s2);
+//			jsonobj.put(list);
+//			arr.put(list);
+////			jsonobj.put("code", s2);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return jsonobj;
-	}
-	
-	public static JSONArray getCartList(List<Purchase_History> list) {
-
-	    JSONObject responseDetailsJson = new JSONObject();
-	    JSONArray jsonArray = new JSONArray();
-	    for(Purchase_History p : list) {
-	        JSONObject formDetailsJson = new JSONObject();
-//	        formDetailsJson.put("Purchase_History", p);
-//	       jsonArray.put(list);
-	    }
-//	    responseDetailsJson.put("forms", jsonArray);//Here you can see the data in json format
-	    jsonArray.put(list);
-	    return jsonArray;
+//		System.out.println("arr"+arr);
+		return arr;
 	}
 }

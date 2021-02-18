@@ -1,6 +1,4 @@
-/api/
-/database/
-/loginController/
+/userProfileController/
 /model/
 /registrationController/
-/userProfileController/
+/loginController/

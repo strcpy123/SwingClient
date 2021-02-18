@@ -1,43 +1,50 @@
 package model;
 
 public class Purchase_History {
-	 // Variable Declaration
+	// Variable Declaration
 	private int id;
+	private int billingId;
 	private int product_Id;
 	private String product_Name;
 	private float product_cost;
 	private int quantity;
 	private float total_cost;
-    // parameterized constructor 
-	/** 
-	 * @param id
-	 * @param product_Id
-	 * @param product_Name
-	 * @param product_cost
-	 * @param quantity
-	 * @param total_cost
-	 * */
-	public Purchase_History(int id, int product_Id, String product_Name, float product_cost, int quantity,
-			float total_cost) {
+
+	// Non-Parameterized constructor
+	public Purchase_History() {
+		super();
+
+	}
+
+	// parameterized constructor
+	public Purchase_History(int id, int billingId, int product_Id, String product_Name, float product_cost,
+			int quantity, float total_cost) {
 		super();
 		this.id = id;
+		this.billingId = billingId;
 		this.product_Id = product_Id;
 		this.product_Name = product_Name;
 		this.product_cost = product_cost;
 		this.quantity = quantity;
 		this.total_cost = total_cost;
 	}
-    // Non-Parameterized constructor 
-	public Purchase_History() {
-		super();
 
-	}
+	/**
+	 * <p>
+	 * Getters and Setters
+	 * </p>
+	 */
 	
-   /** 
-    *<p> Getters and Setters </p>
-    */
 	public int getId() {
 		return id;
+	}
+
+	public int getBillingId() {
+		return billingId;
+	}
+
+	public void setBillingId(int billingId) {
+		this.billingId = billingId;
 	}
 
 	public void setId(int id) {
@@ -83,12 +90,15 @@ public class Purchase_History {
 	public void setProduct_Name(String product_Name) {
 		this.product_Name = product_Name;
 	}
-    // Product Description
+	// Product Description
 	@Override
 	public String toString() {
-		return "Purchase_History [id=" + id + ", product_Id=" + product_Id + ", product_Name=" + product_Name
-				+ ", product_cost=" + product_cost + ", quantity=" + quantity + ", total_cost=" + total_cost + "]";
+		return "Purchase_History [id=" + id + ", billingId=" + billingId + ", product_Id=" + product_Id
+				+ ", product_Name=" + product_Name + ", product_cost=" + product_cost + ", quantity=" + quantity
+				+ ", total_cost=" + total_cost + "]";
 	}
-    
-   
+
+	
+	
+
 }

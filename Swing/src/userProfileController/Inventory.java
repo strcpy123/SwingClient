@@ -40,7 +40,6 @@ public class Inventory extends JFrame implements ActionListener {
 	private JTextField textField_2;
 	private JTextField textField_3;
 	private JLabel lblNewLabel_3;
-//	private DB db;
 	private Product product;
 	private Product cartProduct;
 	private HashSet<Product> productSet;
@@ -175,7 +174,6 @@ public class Inventory extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		// When a user search for a product
 		if (e.getActionCommand() == "Search") {
-//			db = new DB();
 			if (textField_3.getText().isEmpty() || textField_3.getText().isEmpty()
 					|| textField_3.getText().length() == 0) {
 				lblNewLabel_3.setText("Please Enter Product Id");
@@ -196,7 +194,6 @@ public class Inventory extends JFrame implements ActionListener {
 					btnNewButton_2.setEnabled(false);
 					btnNewButton_1.setEnabled(false);
 				} else {
-//					product = db.getProduct(num);
 					JSONObject reqObj = prepareReqJsonObj(String.valueOf(num));
 
 //					JSONObject reqObj = checkMethod(user);

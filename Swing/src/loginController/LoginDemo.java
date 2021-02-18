@@ -38,7 +38,7 @@ public class LoginDemo extends JFrame implements ActionListener {
 	private JLabel res;
 	private User user;
 	private UserProfile userProfile;
-	private DB db;
+	
 	private String rEmail;
 	private String rPassoword;
 
@@ -103,8 +103,6 @@ public class LoginDemo extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		// When user click on login
 		if (e.getSource() == sub) {
-//			db = new DB ();
-//			user = db.getUser(emailField.getText(), passwordField.getText());
 			rEmail = emailField.getText();
 			rPassoword = passwordField.getText();
 			JSONObject reqObj = prepareReqJsonObj(rEmail, rPassoword);

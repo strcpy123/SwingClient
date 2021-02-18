@@ -54,7 +54,6 @@ public class RegisDemo extends JFrame implements ActionListener {
 	private JButton reset;
 	private JLabel res;
 	private User user;
-//	private DB db;
 	private JButton login;
 	private LoginDemo loginDemo;
 
@@ -223,7 +222,6 @@ public class RegisDemo extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		// When a user go for signup
 		if (e.getSource() == sub) {
-//			db = new DB();
 			user = new User();
 			if (nameField.getText().length() != 0 && emailField.getText().length() != 0
 					&& passwordField.getText().length() != 0 && addressArea.getText().length() != 0
@@ -238,7 +236,6 @@ public class RegisDemo extends JFrame implements ActionListener {
 				user.setMonth((String) month.getItemAt(month.getSelectedIndex()));
 				user.setYear((String) year.getItemAt(year.getSelectedIndex()));
 				user.setradioButton(gengp.getSelection().getActionCommand());
-//				db.Store(user);
 				uname = nameField.getText();
 				uemail = emailField.getText();
 				upassword = passwordField.getText();
