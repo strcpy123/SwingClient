@@ -1,0 +1,94 @@
+package model;
+
+public class Purchase_History {
+	 // Variable Declaration
+	private int id;
+	private int product_Id;
+	private String product_Name;
+	private float product_cost;
+	private int quantity;
+	private float total_cost;
+    // parameterized constructor 
+	/** 
+	 * @param id
+	 * @param product_Id
+	 * @param product_Name
+	 * @param product_cost
+	 * @param quantity
+	 * @param total_cost
+	 * */
+	public Purchase_History(int id, int product_Id, String product_Name, float product_cost, int quantity,
+			float total_cost) {
+		super();
+		this.id = id;
+		this.product_Id = product_Id;
+		this.product_Name = product_Name;
+		this.product_cost = product_cost;
+		this.quantity = quantity;
+		this.total_cost = total_cost;
+	}
+    // Non-Parameterized constructor 
+	public Purchase_History() {
+		super();
+
+	}
+	
+   /** 
+    *<p> Getters and Setters </p>
+    */
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getProduct_Id() {
+		return product_Id;
+	}
+
+	public void setProduct_Id(int product_Id) {
+		this.product_Id = product_Id;
+	}
+
+	public float getProduct_cost() {
+		return product_cost;
+	}
+
+	public void setProduct_cost(float product_cost) {
+		this.product_cost = product_cost;
+	}
+
+	public float getTotal_cost() {
+		return total_cost;
+	}
+
+	public void setTotal_cost(float total_cost) {
+		this.total_cost = total_cost;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public String getProduct_Name() {
+		return product_Name;
+	}
+
+	public void setProduct_Name(String product_Name) {
+		this.product_Name = product_Name;
+	}
+    // Product Description
+	@Override
+	public String toString() {
+		return "Purchase_History [id=" + id + ", product_Id=" + product_Id + ", product_Name=" + product_Name
+				+ ", product_cost=" + product_cost + ", quantity=" + quantity + ", total_cost=" + total_cost + "]";
+	}
+    
+   
+}
