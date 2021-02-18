@@ -241,7 +241,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 
 //					JSONObject reqObj = checkMethod(user);
 					String reqString = reqObj.toString();
-					String APIUrl = "http://localhost:9090/findProduct?id="+num;
+					String APIUrl = "http://localhost:9090/findpurchasedhistory?id="+num;
 
 					String response = Utility.excutePost(APIUrl, reqString);
 
