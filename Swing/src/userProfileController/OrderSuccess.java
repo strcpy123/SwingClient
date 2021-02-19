@@ -87,7 +87,7 @@ public class OrderSuccess extends JFrame {
 		textField_1.setText(String.valueOf(purchaseList.get(0).getBillingId()));
 		float total = 0;
 		for (int i = 0; i < purchaseList.size(); i++) {
-			rowData[0] = purchaseList.get(i).getProduct_Id();
+			rowData[0] = purchaseList.get(i).getProductId();
 			rowData[1] = purchaseList.get(i).getProduct_Name();
 			rowData[2] = purchaseList.get(i).getProduct_cost();
 			rowData[3] = purchaseList.get(i).getQuantity();

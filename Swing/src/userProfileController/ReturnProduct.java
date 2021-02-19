@@ -7,6 +7,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -21,13 +25,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
 import api.Utility;
-import database.DB;
 import model.Product;
 import model.Purchase_History;
 
@@ -50,7 +54,6 @@ public class ReturnProduct extends JFrame implements ActionListener {
 	private JButton btnNewButton_1_1;
 	private JScrollPane scrollPane;
 	private Object rowData[];
-	private DB db;
 	private List<Purchase_History> billingPurchaseHistory;
 	private Purchase_History purchaseHistoryofOneItemFromDB;
 	private JLabel lblNewLabel_2_4;
@@ -63,6 +66,9 @@ public class ReturnProduct extends JFrame implements ActionListener {
 	private float total = 0;
 	@SuppressWarnings("unused")
 	private int billingId = 0;
+	private List<Purchase_History> ppl2;
+	private JTextField textField_7;
+	private JLabel lblNewLabel_6;
 
 	/**
 	 * Launch the application.
@@ -86,13 +92,11 @@ public class ReturnProduct extends JFrame implements ActionListener {
 	public ReturnProduct() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(30, 30, 910, 550);
-		setLocationRelativeTo(null); 
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		// Database Object
-		db = new DB();
 
 		JLabel lblNewLabel = new JLabel("Return Order");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -133,21 +137,21 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		panel.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("Product Id:-");
-		lblNewLabel_2.setBounds(44, 22, 67, 28);
+		lblNewLabel_2.setBounds(44, 40, 67, 28);
 		panel.add(lblNewLabel_2);
 
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setBounds(170, 27, 96, 19);
+		textField_1.setBounds(170, 45, 96, 19);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Product Cost:-");
-		lblNewLabel_2_1.setBounds(44, 75, 90, 28);
+		lblNewLabel_2_1.setBounds(44, 98, 90, 28);
 		panel.add(lblNewLabel_2_1);
 
 		JLabel lblNewLabel_2_2 = new JLabel("Quantity:-");
-		lblNewLabel_2_2.setBounds(44, 124, 67, 28);
+		lblNewLabel_2_2.setBounds(44, 138, 67, 28);
 		panel.add(lblNewLabel_2_2);
 
 		JLabel lblNewLabel_2_3 = new JLabel("Total Cost:-");
@@ -157,13 +161,13 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(170, 80, 96, 19);
+		textField_2.setBounds(170, 103, 96, 19);
 		panel.add(textField_2);
 
 		textField_3 = new JTextField();
 		textField_3.setEditable(false);
 		textField_3.setColumns(10);
-		textField_3.setBounds(170, 129, 96, 19);
+		textField_3.setBounds(170, 143, 96, 19);
 		panel.add(textField_3);
 
 		textField_4 = new JTextField();
@@ -195,8 +199,18 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		panel.add(textField_5);
 
 		lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setBounds(112, 314, 130, 25);
+		lblNewLabel_3.setBounds(112, 314, 215, 25);
 		panel.add(lblNewLabel_3);
+
+		textField_7 = new JTextField();
+		textField_7.setEditable(false);
+		textField_7.setBounds(170, 74, 96, 19);
+		panel.add(textField_7);
+		textField_7.setColumns(10);
+
+		lblNewLabel_6 = new JLabel("Product Name");
+		lblNewLabel_6.setBounds(44, 75, 102, 13);
+		panel.add(lblNewLabel_6);
 
 		lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setBounds(223, 101, 580, 31);
@@ -226,6 +240,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 			textField_3.setText("");
 			textField_4.setText("");
 			textField_5.setText("");
+			textField_7.setText("");
 
 			if (textField.getText().isEmpty() || textField.getText().isEmpty() || textField.getText().length() == 0) {
 				lblNewLabel_4.setText("Please Enter the Billing Id");
@@ -236,36 +251,36 @@ public class ReturnProduct extends JFrame implements ActionListener {
 				if (num <= 0) {
 					lblNewLabel_4.setText("Please Enter Correct Billing Number");
 				} else {
-					billingPurchaseHistory = db.getPurchaseDetails(num);
-					JSONObject reqObj = prepareReqJsonObj(String.valueOf(num));
-
-//					JSONObject reqObj = checkMethod(user);
+					JSONObject reqObj = prepareReqJsonObjSearch(num);
 					String reqString = reqObj.toString();
-					String APIUrl = "http://localhost:9090/findpurchasedhistory?id="+num;
-
+					String APIUrl = "http://localhost:9090/findpurchasedhistory?id=" + num;
 					String response = Utility.excutePost(APIUrl, reqString);
-
-					System.out.println(" reqObj" + reqObj);
-					System.out.println("reqString" + reqString);
-					System.out.println("response" + response);
-//					Gson gson = new Gson();
-//					product = gson.fromJson(response, Product.class);
+					ObjectMapper mapper = new ObjectMapper();
+					ppl2 = new ArrayList<Purchase_History>();
+					try {
+						ppl2 = Arrays.asList(mapper.readValue(response, Purchase_History[].class));
+						billingPurchaseHistory = ppl2;
+//						ppl2.stream().forEach(x -> System.out.println(x));
+					} catch (IOException exx) {
+						System.out.println("Message:" + exx.getMessage());
+					}
 					if (billingPurchaseHistory.size() == 0) {
 						lblNewLabel_4.setText("No Records Found in the Database");
 					} else {
 						lblNewLabel_4.setText("");
 
-						table.setModel(new DefaultTableModel(new Object[][] {},
-								new String[] { "Product_Id", "Product Cost", "Quanity", "Total Cost", "Billing_Id" }));
+						table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Product_Id",
+								"ProductName", "Product Cost", "Quanity", "Total Cost", "Billing_Id" }));
 						DefaultTableModel model = (DefaultTableModel) table.getModel();
-						billingId = billingPurchaseHistory.get(0).getId();
+						billingId = billingPurchaseHistory.get(0).getBillingId();
 						total = 0;
 						for (Purchase_History result : billingPurchaseHistory) {
-							rowData[0] = result.getProduct_Id();
-							rowData[1] = result.getProduct_cost();
-							rowData[2] = result.getQuantity();
-							rowData[3] = result.getTotal_cost();
-							rowData[4] = result.getId();
+							rowData[0] = result.getProductId();
+							rowData[1] = result.getProduct_Name();
+							rowData[2] = result.getProduct_cost();
+							rowData[3] = result.getQuantity();
+							rowData[4] = result.getTotal_cost();
+							rowData[5] = result.getBillingId();
 							model.addRow(rowData);
 							total += result.getTotal_cost();
 						}
@@ -280,15 +295,18 @@ public class ReturnProduct extends JFrame implements ActionListener {
 								TableModel model = table.getModel();
 //								table.getModel().isCellEditable(selectedRowIndex, 0);
 								String productId = String.valueOf(model.getValueAt(selectedRowIndex, 0));
-								String productCost = String.valueOf(model.getValueAt(selectedRowIndex, 1));
-								String quantity = String.valueOf(model.getValueAt(selectedRowIndex, 2));
-								String totalCost = "" + model.getValueAt(selectedRowIndex, 3);
-								String billingId = String.valueOf(model.getValueAt(selectedRowIndex, 4));
+								String productName = String.valueOf(model.getValueAt(selectedRowIndex, 1));
+								String productCost = String.valueOf(model.getValueAt(selectedRowIndex, 2));
+								String quantity = String.valueOf(model.getValueAt(selectedRowIndex, 3));
+								String totalCost = "" + model.getValueAt(selectedRowIndex, 4);
+								String billingId = String.valueOf(model.getValueAt(selectedRowIndex, 5));
 								textField_1.setText(productId);
 								textField_2.setText(productCost);
 								textField_3.setText(quantity);
 								textField_4.setText(totalCost);
 								textField_5.setText(billingId);
+								textField_7.setText(productName);
+
 								textField_3.setEditable(true);
 								lblNewLabel_3.setText("");
 							}
@@ -304,29 +322,46 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		// Here we are updating the product according to the user requirements
 		if (e.getActionCommand() == "Update") {
 			if (!(textField_1.getText().isEmpty()) && !(textField_5.getText().isEmpty())) {
-				System.out.println("Update");
 				total = 0;
 				int quantity = this.IsInteger(textField_3.getText());
 				float cost = Float.parseFloat(textField_2.getText()) * quantity;
 				if (quantity <= 0) {
 					lblNewLabel_3.setText("Please Enter Some Valid Number");
 				} else {
-					int status = db.updatePurchaseDetails(quantity, cost, Integer.parseInt(textField_1.getText()),
-							Integer.parseInt(textField_5.getText()));
-					purchaseHistoryofOneItemFromDB = db.getPurchaseHistoryOfOneItem(
-							Integer.parseInt(textField_1.getText()), Integer.parseInt(textField_5.getText()));
-					table.getModel().setValueAt(purchaseHistoryofOneItemFromDB.getQuantity(), selectedRowIndex, 2);
-					System.out.println("Quantity:" + purchaseHistoryofOneItemFromDB.getQuantity());
-					table.getModel().setValueAt(purchaseHistoryofOneItemFromDB.getTotal_cost(), selectedRowIndex, 3);
-					System.out.println("Total Cost:" + purchaseHistoryofOneItemFromDB.getTotal_cost());
+					int id = 0;
+					for (Purchase_History purchase_History : ppl2) {
+						if (purchase_History.getBillingId() == Integer.parseInt(textField_5.getText())
+								&& purchase_History.getProductId() == Integer.parseInt(textField_1.getText())) {
+							id = purchase_History.getId();
+						}
+					}
+
+					JSONObject reqObj = prepareReqJsonObj(id, Integer.parseInt(textField_5.getText()),
+							Integer.parseInt(textField_1.getText()), textField_7.getText(),
+							Float.parseFloat(textField_2.getText()), quantity, cost);
+					String reqString = reqObj.toString();
+					String APIUrl = "http://localhost:9090/updatepurchasedhistory";
+					String response = Utility.excutePost(APIUrl, reqString);
+//					System.out.println(" reqObj" + reqObj);
+//					System.out.println("reqString" + reqString);
+//					System.out.println("response" + response);
+					Gson gson = new Gson();
+					purchaseHistoryofOneItemFromDB = gson.fromJson(response, Purchase_History.class);
+					int idToUpdate = 0;
+					idToUpdate = purchaseHistoryofOneItemFromDB.getId();
+					table.getModel().setValueAt(purchaseHistoryofOneItemFromDB.getQuantity(), selectedRowIndex, 3);
+					table.getModel().setValueAt(purchaseHistoryofOneItemFromDB.getTotal_cost(), selectedRowIndex, 4);
 					textField_4.setText(String.valueOf(cost));
 					total = 0;
-					List<Purchase_History> updatedBillTotal = db
-							.getPurchaseDetails(Integer.parseInt(textField_5.getText()));
-					for (int i = 0; i < updatedBillTotal.size(); i++) {
-						total += updatedBillTotal.get(i).getTotal_cost();
+					for (int i = 0; i < ppl2.size(); i++) {
+						if (ppl2.get(i).getId() == idToUpdate) {
+							ppl2.set(i, purchaseHistoryofOneItemFromDB);
+						}
 					}
-					if (status > 0) {
+					for (int i = 0; i < ppl2.size(); i++) {
+						total += ppl2.get(i).getTotal_cost();
+					}
+					if (idToUpdate > 0) {
 						lblNewLabel_3.setText("Product Updated");
 					}
 					textField_6.setText(String.valueOf(total));
@@ -342,26 +377,51 @@ public class ReturnProduct extends JFrame implements ActionListener {
 			if (!(textField_1.getText().isEmpty()) && !(textField_5.getText().isEmpty())) {
 				int productId = Integer.parseInt(textField_1.getText());
 				int billingId = Integer.parseInt(textField_5.getText());
-				int deletedRow = db.deleteProductFromHistory(productId, billingId);
+				Purchase_History deleteObj = null;
+				for (Purchase_History purchase_History : ppl2) {
+					if ((purchase_History.getBillingId() == billingId)
+							&& (purchase_History.getProductId() == productId)) {
+						deleteObj = purchase_History;
+					}
+				}
+				JSONObject reqObj = prepareReqJsonObjDelete(deleteObj);
+				String reqString = reqObj.toString();
+				String APIUrl = "http://localhost:9090/deletepurchasedhistory";
+
+				String response = Utility.excutePost(APIUrl, reqString);
+//				System.out.println(" reqObj" + reqObj);
+//				System.out.println("reqString" + reqString);
+//				System.out.println("response" + response);
 				((DefaultTableModel) table.getModel()).removeRow(selectedRowIndex);
-				if (deletedRow > 0) {
+
+				total = 0;
+				ObjectMapper mapper = new ObjectMapper();
+				List<Purchase_History> updatedBillTotal = new ArrayList<Purchase_History>();
+				try {
+					updatedBillTotal = Arrays.asList(mapper.readValue(response, Purchase_History[].class));
+//					ppl2.stream().forEach(x -> System.out.println(x));
+				} catch (IOException exx) {
+					System.out.println("Message:" + exx.getMessage());
+				}
+				for (int i = 0; i < updatedBillTotal.size(); i++) {
+					total += updatedBillTotal.get(i).getTotal_cost();
+				}
+//				System.out.println("total"+total);
+				if (ppl2.size() > updatedBillTotal.size()) {
 					lblNewLabel_3.setText("Product Deleted");
 					textField_1.setText("");
 					textField_2.setText("");
 					textField_3.setText("");
 					textField_4.setText("");
 					textField_5.setText("");
+					textField_7.setText("");
+
 				}
 				// For security, Here these buttons are disabled
 				btnNewButton_1.setEnabled(false);
 				textField_3.setEditable(false);
 				btnNewButton_1_1.setEnabled(false);
-				total = 0;
-				List<Purchase_History> updatedBillTotal = db
-						.getPurchaseDetails(billingId);
-				for (int i = 0; i < updatedBillTotal.size(); i++) {
-					total += updatedBillTotal.get(i).getTotal_cost();
-				}
+
 				textField_6.setText(String.valueOf(total));
 			} else {
 				lblNewLabel_3.setText("Please Choose Some Product");
@@ -378,11 +438,69 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		}
 		return num;
 	}
-	
-	public JSONObject prepareReqJsonObj(String s1) {
+
+	/**
+	 * 
+	 * @param id
+	 * @param billingId
+	 * @param productId
+	 * @param product_Name
+	 * @param product_cost
+	 * @param quantity
+	 * @param total_cost
+	 * @return
+	 */
+	public JSONObject prepareReqJsonObj(int id, int billingId, int productId, String product_Name, float product_cost,
+			int quantity, float total_cost) {
 		JSONObject jsonobj = new JSONObject();
 		try {
-			jsonobj.put("productID", s1);
+			jsonobj.put("id", id);
+			jsonobj.put("billingId", billingId);
+			jsonobj.put("productId", productId);
+			jsonobj.put("product_Name", product_Name);
+			jsonobj.put("product_cost", product_cost);
+			jsonobj.put("quantity", quantity);
+			jsonobj.put("total_cost", total_cost);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonobj;
+	}
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public JSONObject prepareReqJsonObjSearch(int id) {
+		JSONObject jsonobj = new JSONObject();
+		try {
+			jsonobj.put("billingId", id);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return jsonobj;
+	}
+
+	/**
+	 * 
+	 * @param deleteObject
+	 * @return
+	 */
+	public JSONObject prepareReqJsonObjDelete(Purchase_History deleteObject) {
+		System.out.println("deleteObject" + deleteObject);
+		JSONObject jsonobj = new JSONObject();
+		try {
+			jsonobj.put("id", deleteObject.getId());
+			jsonobj.put("billingId", deleteObject.getBillingId());
+			jsonobj.put("productId", deleteObject.getProductId());
+			jsonobj.put("product_Name", deleteObject.getProduct_Name());
+			jsonobj.put("product_cost", deleteObject.getProduct_cost());
+			jsonobj.put("quantity", deleteObject.getQuantity());
+			jsonobj.put("total_cost", deleteObject.getTotal_cost());
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

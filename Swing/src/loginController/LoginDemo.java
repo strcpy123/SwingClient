@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import api.Utility;
-import database.DB;
 import model.User;
 import userProfileController.UserProfile;
 

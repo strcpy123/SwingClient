@@ -20,7 +20,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import api.Utility;
-import database.DB;
 import loginController.LoginDemo;
 import model.User;
 

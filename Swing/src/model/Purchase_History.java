@@ -4,7 +4,7 @@ public class Purchase_History {
 	// Variable Declaration
 	private int id;
 	private int billingId;
-	private int product_Id;
+	private int productId;
 	private String product_Name;
 	private float product_cost;
 	private int quantity;
@@ -17,12 +17,12 @@ public class Purchase_History {
 	}
 
 	// parameterized constructor
-	public Purchase_History(int id, int billingId, int product_Id, String product_Name, float product_cost,
+	public Purchase_History(int id, int billingId, int productId, String product_Name, float product_cost,
 			int quantity, float total_cost) {
 		super();
 		this.id = id;
 		this.billingId = billingId;
-		this.product_Id = product_Id;
+		this.productId = productId;
 		this.product_Name = product_Name;
 		this.product_cost = product_cost;
 		this.quantity = quantity;
@@ -51,12 +51,12 @@ public class Purchase_History {
 		this.id = id;
 	}
 
-	public int getProduct_Id() {
-		return product_Id;
+	public int getProductId() {
+		return productId;
 	}
 
-	public void setProduct_Id(int product_Id) {
-		this.product_Id = product_Id;
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
 
 	public float getProduct_cost() {
@@ -93,7 +93,7 @@ public class Purchase_History {
 	// Product Description
 	@Override
 	public String toString() {
-		return "Purchase_History [id=" + id + ", billingId=" + billingId + ", product_Id=" + product_Id
+		return "Purchase_History [id=" + id + ", billingId=" + billingId + ", productId=" + productId
 				+ ", product_Name=" + product_Name + ", product_cost=" + product_cost + ", quantity=" + quantity
 				+ ", total_cost=" + total_cost + "]";
 	}

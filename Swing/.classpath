@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/prash/Downloads/mysql-connector-java-8.0.15.jar"/>
 	<classpathentry kind="lib" path="C:/Users/prash/Downloads/converter-gson-2.3.0.jar/converter-gson-2.3.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/prash/Downloads/gson-2.2.2.jar/gson-2.2.2.jar"/>
 	<classpathentry kind="lib" path="C:/Users/prash/Downloads/org.apache.commons.io.jar/org.apache.commons.io.jar"/>

@@ -32,7 +32,6 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import api.Utility;
-import database.DB;
 import model.Product;
 import model.Purchase_History;
 
@@ -163,7 +162,7 @@ public class CartController extends JFrame implements ActionListener {
 		if (e.getActionCommand() == "Place Order") {
 			for (int i = 0; i < table.getRowCount(); i++) {
 				purchase_history = new Purchase_History();
-				purchase_history.setProduct_Id((int) (table.getModel().getValueAt(i, 0)));
+				purchase_history.setProductId((int) (table.getModel().getValueAt(i, 0)));
 				purchase_history.setProduct_Name((String) table.getModel().getValueAt(i, 1));
 				purchase_history.setProduct_cost((Float) table.getModel().getValueAt(i, 2));
 //				System.out.println((table.getModel().getValueAt(i, 3));
@@ -178,9 +177,9 @@ public class CartController extends JFrame implements ActionListener {
 
 			String response = Utility.excutePost(APIUrl, reqString);
 
-			System.out.println(" reqObj" + reqObj);
-			System.out.println("reqString" + reqString);
-			System.out.println("response" + response);
+//			System.out.println(" reqObj" + reqObj);
+//			System.out.println("reqString" + reqString);
+//			System.out.println("response" + response);
 			ObjectMapper mapper = new ObjectMapper();
 			List<Purchase_History> ppl2 = new ArrayList<Purchase_History>();
 			try {
@@ -204,7 +203,7 @@ public class CartController extends JFrame implements ActionListener {
 			for (Purchase_History purchase_History : list) {
 				jsonobj = new JSONObject();
 				jsonobj.put("billingId", code);
-				jsonobj.put("product_Id", purchase_History.getProduct_Id());
+				jsonobj.put("productId", purchase_History.getProductId());
 				jsonobj.put("product_Name", purchase_History.getProduct_Name());
 				jsonobj.put("product_cost", purchase_History.getProduct_cost());
 				jsonobj.put("quantity", purchase_History.getQuantity());
