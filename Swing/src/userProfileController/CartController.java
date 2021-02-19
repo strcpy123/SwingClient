@@ -173,7 +173,8 @@ public class CartController extends JFrame implements ActionListener {
 			code = (int) (Math.random() * 100000);
 			JSONArray reqObj = prepareReqJsonObj(purchaseList);
 			String reqString = reqObj.toString();
-			String APIUrl = "http://localhost:9090/storeProduct";
+//			String APIUrl = "http://localhost:9090/storeProduct";
+			String APIUrl = "http://127.0.0.1:8080/BootSwing-0.0.1-SNAPSHOT/storeProduct";
 
 			String response = Utility.excutePost(APIUrl, reqString);
 

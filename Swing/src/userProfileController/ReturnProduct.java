@@ -253,7 +253,8 @@ public class ReturnProduct extends JFrame implements ActionListener {
 				} else {
 					JSONObject reqObj = prepareReqJsonObjSearch(num);
 					String reqString = reqObj.toString();
-					String APIUrl = "http://localhost:9090/findpurchasedhistory?id=" + num;
+//					String APIUrl = "http://localhost:9090/findpurchasedhistory?id=" + num;
+					String APIUrl = "http://127.0.0.1:8080/BootSwing-0.0.1-SNAPSHOT/findpurchasedhistory?id=" + num;
 					String response = Utility.excutePost(APIUrl, reqString);
 					ObjectMapper mapper = new ObjectMapper();
 					ppl2 = new ArrayList<Purchase_History>();
@@ -340,7 +341,8 @@ public class ReturnProduct extends JFrame implements ActionListener {
 							Integer.parseInt(textField_1.getText()), textField_7.getText(),
 							Float.parseFloat(textField_2.getText()), quantity, cost);
 					String reqString = reqObj.toString();
-					String APIUrl = "http://localhost:9090/updatepurchasedhistory";
+//					String APIUrl = "http://localhost:9090/updatepurchasedhistory";
+					String APIUrl = "http://127.0.0.1:8080/BootSwing-0.0.1-SNAPSHOT/updatepurchasedhistory";
 					String response = Utility.excutePost(APIUrl, reqString);
 //					System.out.println(" reqObj" + reqObj);
 //					System.out.println("reqString" + reqString);
@@ -386,7 +388,8 @@ public class ReturnProduct extends JFrame implements ActionListener {
 				}
 				JSONObject reqObj = prepareReqJsonObjDelete(deleteObj);
 				String reqString = reqObj.toString();
-				String APIUrl = "http://localhost:9090/deletepurchasedhistory";
+//				String APIUrl = "http://localhost:9090/deletepurchasedhistory";
+				String APIUrl = "http://127.0.0.1:8080/BootSwing-0.0.1-SNAPSHOT/deletepurchasedhistory";
 
 				String response = Utility.excutePost(APIUrl, reqString);
 //				System.out.println(" reqObj" + reqObj);

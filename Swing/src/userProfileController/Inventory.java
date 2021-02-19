@@ -197,7 +197,8 @@ public class Inventory extends JFrame implements ActionListener {
 
 //					JSONObject reqObj = checkMethod(user);
 					String reqString = reqObj.toString();
-					String APIUrl = "http://localhost:9090/findProduct?id="+num;
+//					String APIUrl = "http://localhost:9090/findProduct?id="+num;
+					String APIUrl = "http://127.0.0.1:8080/BootSwing-0.0.1-SNAPSHOT/findProduct?id="+num;
 
 					String response = Utility.excutePost(APIUrl, reqString);
 

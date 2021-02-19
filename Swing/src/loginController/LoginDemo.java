@@ -108,8 +108,8 @@ public class LoginDemo extends JFrame implements ActionListener {
 
 //			JSONObject reqObj = checkMethod(user);
 			String reqString = reqObj.toString();
-			String APIUrl = "http://localhost:9090/login";
-
+//			String APIUrl = "http://localhost:9090/login";
+			String APIUrl = "http://127.0.0.1:8080/BootSwing-0.0.1-SNAPSHOT/login";
 			String response = Utility.excutePost(APIUrl, reqString);
 
 //			System.out.println(" reqObj" + reqObj);
