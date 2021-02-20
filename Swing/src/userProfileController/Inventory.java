@@ -82,13 +82,13 @@ public class Inventory extends JFrame implements ActionListener {
 		productSet = new HashSet<>();
 
 		JLabel lblNewLabel_1 = new JLabel("Product Id");
-		lblNewLabel_1.setBounds(126, 66, 103, 28);
+		lblNewLabel_1.setBounds(220, 66, 103, 28);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		contentPane.add(lblNewLabel_1);
 
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(423, 66, 132, 28);
+		btnNewButton.setBounds(556, 66, 132, 28);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		contentPane.add(btnNewButton);
 
@@ -104,7 +104,7 @@ public class Inventory extends JFrame implements ActionListener {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"Product Details", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setToolTipText("");
-		panel.setBounds(26, 163, 835, 298);
+		panel.setBounds(53, 163, 835, 298);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -143,25 +143,25 @@ public class Inventory extends JFrame implements ActionListener {
 
 		lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(212, 233, 591, 55);
+		lblNewLabel_3.setBounds(231, 233, 572, 55);
 		panel.add(lblNewLabel_3);
 
 		btnNewButton_2 = new JButton("Add");
 		btnNewButton_2.setEnabled(false);
 		btnNewButton_2.addActionListener(this);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_2.setBounds(340, 163, 218, 49);
+		btnNewButton_2.setBounds(314, 163, 218, 49);
 		panel.add(btnNewButton_2);
 
 		btnNewButton_1 = new JButton("Go To Cart");
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_1.setBounds(261, 506, 276, 36);
+		btnNewButton_1.setBounds(313, 506, 276, 36);
 		contentPane.add(btnNewButton_1);
 
 		textField_3 = new JTextField();
-		textField_3.setBounds(237, 66, 132, 36);
+		textField_3.setBounds(382, 65, 132, 36);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
 

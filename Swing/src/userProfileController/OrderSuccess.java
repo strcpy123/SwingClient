@@ -43,11 +43,11 @@ public class OrderSuccess extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("Invoice");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(307, 10, 64, 32);
+		lblNewLabel.setBounds(473, 10, 91, 32);
 		contentPane.add(lblNewLabel);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(91, 120, 547, 277);
+		scrollPane.setBounds(91, 120, 799, 270);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
@@ -62,12 +62,12 @@ public class OrderSuccess extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Total :- ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(367, 404, 57, 42);
+		lblNewLabel_1.setBounds(608, 442, 57, 42);
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(443, 407, 195, 42);
+		textField.setBounds(695, 445, 195, 42);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -78,7 +78,7 @@ public class OrderSuccess extends JFrame {
 		
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
-		textField_1.setBounds(217, 52, 221, 47);
+		textField_1.setBounds(214, 52, 221, 47);
 		contentPane.add(textField_1);
 		textField_1.setColumns(10);
 		

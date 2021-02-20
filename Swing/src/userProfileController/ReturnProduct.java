@@ -100,26 +100,26 @@ public class ReturnProduct extends JFrame implements ActionListener {
 
 		JLabel lblNewLabel = new JLabel("Return Order");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(345, 10, 106, 53);
+		lblNewLabel.setBounds(420, -1, 106, 53);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Enter Billing Id:-");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(89, 60, 151, 31);
+		lblNewLabel_1.setBounds(162, 60, 151, 31);
 		contentPane.add(lblNewLabel_1);
 
 		textField = new JTextField();
-		textField.setBounds(223, 60, 204, 31);
+		textField.setBounds(323, 62, 204, 31);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(463, 63, 102, 28);
+		btnNewButton.setBounds(558, 60, 102, 28);
 		contentPane.add(btnNewButton);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(400, 165, 450, 246);
+		scrollPane.setBounds(476, 162, 450, 246);
 		contentPane.add(scrollPane);
 		// Object array is used for dynamic table row.
 		rowData = new Object[10];
@@ -132,7 +132,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.ORANGE));
-		panel.setBounds(20, 131, 337, 349);
+		panel.setBounds(65, 131, 337, 349);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -147,7 +147,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		textField_1.setColumns(10);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Product Cost:-");
-		lblNewLabel_2_1.setBounds(44, 98, 90, 28);
+		lblNewLabel_2_1.setBounds(44, 100, 90, 28);
 		panel.add(lblNewLabel_2_1);
 
 		JLabel lblNewLabel_2_2 = new JLabel("Quantity:-");
@@ -179,7 +179,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(26, 268, 85, 21);
+		btnNewButton_1.setBounds(49, 268, 85, 21);
 		panel.add(btnNewButton_1);
 
 		btnNewButton_1_1 = new JButton("Delete");
@@ -218,12 +218,12 @@ public class ReturnProduct extends JFrame implements ActionListener {
 
 		lblNewLabel_5 = new JLabel("Total :-");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_5.setBounds(550, 438, 92, 31);
+		lblNewLabel_5.setBounds(591, 438, 92, 31);
 		contentPane.add(lblNewLabel_5);
 
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
-		textField_6.setBounds(619, 433, 233, 47);
+		textField_6.setBounds(693, 432, 233, 47);
 		contentPane.add(textField_6);
 		textField_6.setColumns(10);
 

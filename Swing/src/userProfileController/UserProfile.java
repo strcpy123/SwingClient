@@ -124,17 +124,17 @@ public class UserProfile extends JFrame implements ActionListener {
 
 		btnNewButton = new JButton("Logout");
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(179, 552, 141, 43);
+		btnNewButton.setBounds(90, 536, 141, 43);
 		contentPane.add(btnNewButton);
 
 		btnProductPanel = new JButton("Order Product");
 		btnProductPanel.addActionListener(this);
-		btnProductPanel.setBounds(363, 552, 141, 43);
+		btnProductPanel.setBounds(335, 536, 141, 43);
 		contentPane.add(btnProductPanel);
 
 		btnReturnProduct = new JButton("Return Product");
 		btnReturnProduct.addActionListener(this);
-		btnReturnProduct.setBounds(574, 552, 141, 43);
+		btnReturnProduct.setBounds(577, 536, 141, 43);
 		contentPane.add(btnReturnProduct);
 
 		setVisible(true);

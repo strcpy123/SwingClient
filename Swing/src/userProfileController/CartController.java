@@ -71,12 +71,12 @@ public class CartController extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Cart");
-		lblNewLabel.setBounds(320, 0, 53, 52);
+		lblNewLabel.setBounds(399, 10, 53, 52);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		contentPane.add(lblNewLabel);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(31, 44, 647, 192);
+		scrollPane.setBounds(49, 78, 815, 178);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -96,22 +96,22 @@ public class CartController extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(this);
 		btnNewButton.setForeground(new Color(0, 128, 0));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(248, 277, 227, 29);
+		btnNewButton.setBounds(321, 366, 227, 29);
 		contentPane.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("Total");
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(370, 246, 85, 21);
+		btnNewButton_1.setBounds(530, 307, 85, 21);
 		contentPane.add(btnNewButton_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Total Cost :");
-		lblNewLabel_1.setBounds(465, 243, 67, 24);
+		lblNewLabel_1.setBounds(651, 305, 67, 24);
 		contentPane.add(lblNewLabel_1);
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(542, 247, 136, 21);
+		textField.setBounds(728, 307, 136, 21);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
