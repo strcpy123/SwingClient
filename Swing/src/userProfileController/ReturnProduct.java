@@ -91,7 +91,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 	 */
 	public ReturnProduct() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(30, 30, 910, 550);
+		setBounds(30, 30, 950, 950);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

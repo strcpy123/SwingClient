@@ -71,7 +71,7 @@ public class Inventory extends JFrame implements ActionListener {
 	 */
 	public Inventory() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 900, 600);
+		setBounds(100, 100, 950, 950);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setForeground(Color.RED);
