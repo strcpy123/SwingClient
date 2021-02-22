@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashSet;
 
 import javax.swing.JButton;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import api.Utility;
+import loginController.LoginDemo;
 import model.Product;
 import model.User;
 
@@ -49,6 +52,9 @@ public class Inventory extends JFrame implements ActionListener {
 	private JButton btnNewButton_1;
 	@SuppressWarnings("unused")
 	private CartController cartcontroller;
+	private JPanel panel_1;
+	private JLabel lblNewLabel_4_1;
+	private JLabel lblNewLabel_4_2;
 
 	/**
 	 * Launch the application.
@@ -71,29 +77,29 @@ public class Inventory extends JFrame implements ActionListener {
 	 */
 	public Inventory() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 950, 950);
+		setBounds(50, 50, 800, 800);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
-		contentPane.setForeground(Color.RED);
+		contentPane.setForeground(Color.WHITE);
 		contentPane.setBackground(Color.WHITE);
-		contentPane.setBorder(new LineBorder(new Color(255, 0, 0), 2));
+		contentPane.setBorder(new LineBorder(null, 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		productSet = new HashSet<>();
 
 		JLabel lblNewLabel_1 = new JLabel("Product Id");
-		lblNewLabel_1.setBounds(220, 66, 103, 28);
+		lblNewLabel_1.setBounds(194, 130, 103, 28);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		contentPane.add(lblNewLabel_1);
 
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(556, 66, 132, 28);
+		btnNewButton.setBounds(464, 130, 132, 28);
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		contentPane.add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Order Product");
-		lblNewLabel.setBounds(339, 10, 194, 36);
+		lblNewLabel.setBounds(282, 71, 194, 36);
 		lblNewLabel.setForeground(Color.RED);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -104,67 +110,100 @@ public class Inventory extends JFrame implements ActionListener {
 				new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)),
 				"Product Details", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panel.setToolTipText("");
-		panel.setBounds(53, 163, 835, 298);
+		panel.setBounds(20, 208, 739, 298);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel_2 = new JLabel("Product Id");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2.setBounds(149, 21, 86, 17);
+		lblNewLabel_2.setBounds(112, 21, 86, 17);
 		panel.add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Product Name");
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2_1.setBounds(394, 19, 103, 21);
+		lblNewLabel_2_1.setBounds(325, 19, 103, 21);
 		panel.add(lblNewLabel_2_1);
 
 		JLabel lblNewLabel_2_2 = new JLabel("Price");
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_2_2.setBounds(632, 19, 48, 21);
+		lblNewLabel_2_2.setBounds(597, 19, 48, 21);
 		panel.add(lblNewLabel_2_2);
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(149, 78, 96, 19);
+		textField.setBounds(112, 78, 96, 19);
 		panel.add(textField);
 		textField.setColumns(10);
 
 		textField_1 = new JTextField();
 		textField_1.setEditable(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(383, 78, 124, 19);
+		textField_1.setBounds(325, 78, 124, 19);
 		panel.add(textField_1);
 
 		textField_2 = new JTextField();
 		textField_2.setEditable(false);
 		textField_2.setColumns(10);
-		textField_2.setBounds(608, 78, 86, 19);
+		textField_2.setBounds(597, 78, 86, 19);
 		panel.add(textField_2);
 
 		lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_3.setBounds(231, 233, 572, 55);
+		lblNewLabel_3.setBounds(96, 233, 587, 55);
 		panel.add(lblNewLabel_3);
 
 		btnNewButton_2 = new JButton("Add");
 		btnNewButton_2.setEnabled(false);
 		btnNewButton_2.addActionListener(this);
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_2.setBounds(314, 163, 218, 49);
+		btnNewButton_2.setBounds(308, 176, 139, 36);
 		panel.add(btnNewButton_2);
 
 		btnNewButton_1 = new JButton("Go To Cart");
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.addActionListener(this);
 		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton_1.setBounds(313, 506, 276, 36);
+		btnNewButton_1.setBounds(257, 568, 276, 36);
 		contentPane.add(btnNewButton_1);
 
 		textField_3 = new JTextField();
-		textField_3.setBounds(382, 65, 132, 36);
+		textField_3.setBounds(307, 129, 132, 36);
 		contentPane.add(textField_3);
 		textField_3.setColumns(10);
-
+		
+		panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBackground(Color.GRAY);
+		panel_1.setBounds(0, 0, 786, 50);
+		contentPane.add(panel_1);
+		
+		lblNewLabel_4_1 = new JLabel("Return");
+		lblNewLabel_4_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new ReturnProduct();
+				dispose();
+			}
+		});
+		lblNewLabel_4_1.setForeground(Color.WHITE);
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_4_1.setBounds(592, 10, 62, 30);
+		panel_1.add(lblNewLabel_4_1);
+		
+		lblNewLabel_4_2 = new JLabel("Logout");
+		lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new LoginDemo();
+				dispose();
+			}
+		});
+		lblNewLabel_4_2.setForeground(Color.WHITE);
+		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_4_2.setBounds(694, 10, 62, 30);
+		panel_1.add(lblNewLabel_4_2);
+		
 		setVisible(true);
 	}
 

@@ -32,8 +32,11 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import api.Utility;
+import loginController.LoginDemo;
 import model.Product;
 import model.Purchase_History;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Class for ProductCart
@@ -57,13 +60,16 @@ public class CartController extends JFrame implements ActionListener {
 	private Purchase_History purchase_history;
 	private List<Purchase_History> purchaseList;
 	private int code = 0;
+	private JPanel panel;
+	private JLabel lblNewLabel_4;
+	private JLabel lblNewLabel_4_1;
 
 	/**
 	 * Create the frame.
 	 */
 	public CartController(HashSet<Product> productSet) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 950, 950);
+		setBounds(50, 50, 800, 800);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,12 +77,12 @@ public class CartController extends JFrame implements ActionListener {
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Cart");
-		lblNewLabel.setBounds(399, 10, 53, 52);
+		lblNewLabel.setBounds(367, 77, 53, 52);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		contentPane.add(lblNewLabel);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(49, 78, 815, 178);
+		scrollPane.setBounds(42, 139, 710, 238);
 		contentPane.add(scrollPane);
 
 		table = new JTable();
@@ -96,24 +102,56 @@ public class CartController extends JFrame implements ActionListener {
 		btnNewButton.addActionListener(this);
 		btnNewButton.setForeground(new Color(0, 128, 0));
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnNewButton.setBounds(321, 366, 227, 29);
+		btnNewButton.setBounds(297, 473, 227, 29);
 		contentPane.add(btnNewButton);
 
 		btnNewButton_1 = new JButton("Total");
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(530, 307, 85, 21);
+		btnNewButton_1.setBounds(367, 408, 85, 21);
 		contentPane.add(btnNewButton_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Total Cost :");
-		lblNewLabel_1.setBounds(651, 305, 67, 24);
+		lblNewLabel_1.setBounds(539, 406, 67, 24);
 		contentPane.add(lblNewLabel_1);
 
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(728, 307, 136, 21);
+		textField.setBounds(616, 408, 136, 21);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(0, 0, 786, 50);
+		contentPane.add(panel);
+		
+		lblNewLabel_4 = new JLabel("Return");
+		lblNewLabel_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new ReturnProduct();
+				dispose();
+			}
+		});
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_4.setBounds(592, 10, 62, 30);
+		panel.add(lblNewLabel_4);
+		
+		lblNewLabel_4_1 = new JLabel("Logout");
+		lblNewLabel_4_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new LoginDemo();
+				dispose();
+			}
+		});
+		lblNewLabel_4_1.setForeground(Color.WHITE);
+		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_4_1.setBounds(694, 10, 62, 30);
+		panel.add(lblNewLabel_4_1);
 
 		cartSet = productSet;
 		model = (DefaultTableModel) table.getModel();

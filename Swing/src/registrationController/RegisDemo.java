@@ -22,6 +22,15 @@ import org.json.JSONObject;
 import api.Utility;
 import loginController.LoginDemo;
 import model.User;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JList;
 
 /**
  * Class for Registration
@@ -53,7 +62,6 @@ public class RegisDemo extends JFrame implements ActionListener {
 	private JButton reset;
 	private JLabel res;
 	private User user;
-	private JButton login;
 	private LoginDemo loginDemo;
 
 	private String dates[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
@@ -62,17 +70,19 @@ public class RegisDemo extends JFrame implements ActionListener {
 	private String years[] = { "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005",
 			"2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018",
 			"2019", "2020" };
+	private String roles[] = {"Manager","Employee"};
 	private static final String EMAIL_PATTERN = "^(.+)@(\\S+)$";
 	private static final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-	String uname;
-	String uemail;
-	String upassword;
-	String umobile;
-	String uradioButton;
-	String uDate;
-	String uMonth;
-	String uYear;
-	String uAddressArea;
+	private String uname;
+	private String uemail;
+	private String upassword;
+	private String umobile;
+	private String uradioButton;
+	private String uDate;
+	private String uMonth;
+	private String uYear;
+	private String uAddressArea;
+	private JLabel lblNewLabel;
 
 	// Registration Page Frame
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -88,66 +98,66 @@ public class RegisDemo extends JFrame implements ActionListener {
 
 		title = new JLabel("Signup Here");
 		title.setSize(94, 30);
-		title.setLocation(395, 10);
+		title.setLocation(395, 69);
 		container.add(title);
 
 		name = new JLabel("Enter Name");
 		name.setSize(100, 30);
-		name.setLocation(190, 58);
+		name.setLocation(190, 131);
 		container.add(name);
 
 		nameField = new JTextField(5);
 		nameField.setSize(300, 50);
-		nameField.setLocation(300, 49);
+		nameField.setLocation(305, 122);
 		container.add(nameField);
 
 		email = new JLabel("Enter Email");
 		email.setSize(100, 30);
-		email.setLocation(190, 116);
+		email.setLocation(190, 213);
 		container.add(email);
 
 		emailField = new JTextField();
 		emailField.setSize(300, 50);
-		emailField.setLocation(300, 107);
+		emailField.setLocation(305, 204);
 		container.add(emailField);
 
 		password = new JLabel("Enter Password");
 		password.setSize(100, 30);
-		password.setLocation(190, 181);
+		password.setLocation(190, 287);
 		container.add(password);
 
 		passwordField = new JPasswordField();
 		passwordField.setSize(300, 50);
-		passwordField.setLocation(300, 172);
+		passwordField.setLocation(305, 278);
 		container.add(passwordField);
 
 		mobile = new JLabel("Enter Mobile");
 		mobile.setSize(100, 30);
-		mobile.setLocation(190, 254);
+		mobile.setLocation(190, 365);
 		container.add(mobile);
 
 		mobileField = new JTextField();
 		mobileField.setSize(300, 50);
-		mobileField.setLocation(300, 245);
+		mobileField.setLocation(305, 356);
 		container.add(mobileField);
 
 		gender = new JLabel("Gender");
 		gender.setSize(100, 30);
-		gender.setLocation(190, 342);
+		gender.setLocation(190, 423);
 		container.add(gender);
 
 		maleButton = new JRadioButton("Male");
 		maleButton.setActionCommand(maleButton.getText());
 		maleButton.setSelected(true);
 		maleButton.setSize(75, 20);
-		maleButton.setLocation(300, 347);
+		maleButton.setLocation(305, 428);
 		container.add(maleButton);
 
 		femaleButton = new JRadioButton("Female");
 		femaleButton.setActionCommand(femaleButton.getText());
 		femaleButton.setSelected(false);
 		femaleButton.setSize(80, 20);
-		femaleButton.setLocation(395, 347);
+		femaleButton.setLocation(409, 428);
 		container.add(femaleButton);
 
 		gengp = new ButtonGroup();
@@ -156,57 +166,72 @@ public class RegisDemo extends JFrame implements ActionListener {
 
 		dob = new JLabel("DOB");
 		dob.setSize(100, 20);
-		dob.setLocation(190, 395);
+		dob.setLocation(190, 478);
 		container.add(dob);
 
 		date = new JComboBox(dates);
 		date.setSize(50, 20);
-		date.setLocation(300, 395);
+		date.setLocation(306, 478);
 		container.add(date);
 
 		month = new JComboBox(months);
 		month.setSize(60, 20);
-		month.setLocation(420, 395);
+		month.setLocation(409, 478);
 		container.add(month);
 
 		year = new JComboBox(years);
 		year.setSize(60, 20);
-		year.setLocation(540, 395);
+		year.setLocation(528, 478);
 		container.add(year);
 
 		address = new JLabel("Address");
 		address.setSize(100, 20);
-		address.setLocation(190, 483);
+		address.setLocation(190, 599);
 		container.add(address);
 
 		addressArea = new JTextArea();
 		addressArea.setSize(300, 75);
-		addressArea.setLocation(300, 456);
+		addressArea.setLocation(305, 574);
 		addressArea.setLineWrap(true);
 		container.add(addressArea);
 
 		sub = new JButton("Sign Up");
 		sub.setSize(100, 20);
-		sub.setLocation(300, 573);
+		sub.setLocation(305, 674);
 		sub.addActionListener(this);
 		container.add(sub);
 
 		reset = new JButton("Reset");
 		reset.setSize(100, 20);
-		reset.setLocation(395, 616);
+		reset.setLocation(505, 674);
 		reset.addActionListener(this);
 		container.add(reset);
 
-		login = new JButton("Login");
-		login.setSize(100, 20);
-		login.setLocation(500, 573);
-		login.addActionListener(this);
-		container.add(login);
-
 		res = new JLabel("");
+		res.setHorizontalAlignment(SwingConstants.CENTER);
+		res.setForeground(Color.RED);
 		res.setSize(196, 25);
-		res.setLocation(356, 663);
+		res.setLocation(351, 719);
 		container.add(res);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.GRAY);
+		panel.setBounds(0, 0, 796, 50);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		lblNewLabel = new JLabel("Login");
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				LoginDemo login  =  new LoginDemo();
+				dispose();
+			}
+		});
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setBounds(709, 10, 77, 30);
+		panel.add(lblNewLabel);
 
 		setVisible(true);
 	}
@@ -340,5 +365,4 @@ public class RegisDemo extends JFrame implements ActionListener {
 		}
 		return jsonobj;
 	}
-
 }

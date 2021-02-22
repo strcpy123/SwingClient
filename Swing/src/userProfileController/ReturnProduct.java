@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -31,8 +32,10 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import api.Utility;
+import loginController.LoginDemo;
 import model.Product;
 import model.Purchase_History;
+import javax.swing.SwingConstants;
 
 /**
  * Class for Return Product
@@ -68,6 +71,9 @@ public class ReturnProduct extends JFrame implements ActionListener {
 	private List<Purchase_History> ppl2;
 	private JTextField textField_7;
 	private JLabel lblNewLabel_6;
+	private JPanel panel_1;
+	private JLabel lblNewLabel_7;
+	private JLabel lblNewLabel_4_2;
 
 	/**
 	 * Launch the application.
@@ -90,7 +96,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 	 */
 	public ReturnProduct() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(30, 30, 950, 950);
+		setBounds(50, 50, 800, 800);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -99,26 +105,26 @@ public class ReturnProduct extends JFrame implements ActionListener {
 
 		JLabel lblNewLabel = new JLabel("Return Order");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(420, -1, 106, 53);
+		lblNewLabel.setBounds(314, 64, 106, 53);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Enter Billing Id:-");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(162, 60, 151, 31);
+		lblNewLabel_1.setBounds(92, 125, 151, 31);
 		contentPane.add(lblNewLabel_1);
 
 		textField = new JTextField();
-		textField.setBounds(323, 62, 204, 31);
+		textField.setBounds(253, 127, 204, 31);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
 		btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(this);
-		btnNewButton.setBounds(558, 60, 102, 28);
+		btnNewButton.setBounds(519, 128, 102, 28);
 		contentPane.add(btnNewButton);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(476, 162, 450, 246);
+		scrollPane.setBounds(361, 182, 415, 246);
 		contentPane.add(scrollPane);
 		// Object array is used for dynamic table row.
 		rowData = new Object[10];
@@ -131,7 +137,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(Color.ORANGE));
-		panel.setBounds(65, 131, 337, 349);
+		panel.setBounds(14, 182, 337, 349);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
@@ -146,7 +152,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		textField_1.setColumns(10);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Product Cost:-");
-		lblNewLabel_2_1.setBounds(44, 100, 90, 28);
+		lblNewLabel_2_1.setBounds(44, 98, 90, 28);
 		panel.add(lblNewLabel_2_1);
 
 		JLabel lblNewLabel_2_2 = new JLabel("Quantity:-");
@@ -178,7 +184,7 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		btnNewButton_1 = new JButton("Update");
 		btnNewButton_1.setEnabled(false);
 		btnNewButton_1.addActionListener(this);
-		btnNewButton_1.setBounds(49, 268, 85, 21);
+		btnNewButton_1.setBounds(26, 268, 85, 21);
 		panel.add(btnNewButton_1);
 
 		btnNewButton_1_1 = new JButton("Delete");
@@ -198,7 +204,8 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		panel.add(textField_5);
 
 		lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setBounds(112, 314, 215, 25);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setBounds(81, 300, 215, 25);
 		panel.add(lblNewLabel_3);
 
 		textField_7 = new JTextField();
@@ -212,19 +219,52 @@ public class ReturnProduct extends JFrame implements ActionListener {
 		panel.add(lblNewLabel_6);
 
 		lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setBounds(223, 101, 580, 31);
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_4.setBounds(202, 566, 394, 31);
 		contentPane.add(lblNewLabel_4);
 
 		lblNewLabel_5 = new JLabel("Total :-");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_5.setBounds(591, 438, 92, 31);
+		lblNewLabel_5.setBounds(463, 449, 92, 31);
 		contentPane.add(lblNewLabel_5);
 
 		textField_6 = new JTextField();
 		textField_6.setEditable(false);
-		textField_6.setBounds(693, 432, 233, 47);
+		textField_6.setBounds(543, 443, 233, 47);
 		contentPane.add(textField_6);
 		textField_6.setColumns(10);
+		
+		panel_1 = new JPanel();
+		panel_1.setLayout(null);
+		panel_1.setBackground(Color.GRAY);
+		panel_1.setBounds(0, 0, 786, 50);
+		contentPane.add(panel_1);
+		
+		lblNewLabel_7 = new JLabel("Order");
+		lblNewLabel_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Inventory();
+				dispose();
+			}
+		});
+		lblNewLabel_7.setForeground(Color.WHITE);
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_7.setBounds(622, 10, 62, 30);
+		panel_1.add(lblNewLabel_7);
+		
+		lblNewLabel_4_2 = new JLabel("Logout");
+		lblNewLabel_4_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new LoginDemo();
+				dispose();
+			}
+		});
+		lblNewLabel_4_2.setForeground(Color.WHITE);
+		lblNewLabel_4_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblNewLabel_4_2.setBounds(694, 10, 62, 30);
+		panel_1.add(lblNewLabel_4_2);
 
 		setVisible(true);
 	}
